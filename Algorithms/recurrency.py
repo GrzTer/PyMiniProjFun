@@ -1,5 +1,6 @@
 """
-Book: Algorithms: Data Structures and Programming Structure
+Book: Algorithms: Data Structures and Programming Structure - Piotr. Wróblewski
+Book: Algorithms: illustrated guide - Adiya Y. Bhargava
 Title: 2.9 Recurrency exercises
 Date: 26.03.2025
 Page: 47
@@ -63,14 +64,76 @@ if __name__ == "__main__":
     main()"""
 
 # Ex. 2-3-AdditionalNum - Int -> Bin
-
+"""
 def int_bin_konwerter(x):
     while x != 0:
         x = x // 2
         print(x % 2)
-int_bin_konwerter(100)
+int_bin_konwerter(100)"""
 
+# Finum
+"""
+def FiNum(n):
+    if n < 2:
+        return 1
+    else:
+        return FiNum(n - 1) + FiNum(n - 2)
+print(FiNum(5))"""
 
+# Fun
+"""
+def Fun(n):
+    if n < 2:
+        return 1
+    else:
+        return Fun(n - 1) + Fun(n - 2)
+print(Fun(5))"""
+"""
+import sys
+sys.setrecursionlimit(100000000)  # Increase the recursion limit to allow more recursive calls
 
+def countdown(n):
+    print(n)
+    countdown(n - 1)
 
+countdown(900)
+"""
+# P2.43) - Recurrency Greetings
+"""
+class Greetings:
+    def __init__(self, name):
+        self.name = name
 
+    def greet(self):
+        print (f"Cześć, {self.name}!")
+        self.greet2()
+        print(f"Przygotowanie pożegnania...")
+        self.bye()
+
+    def greet2(self):
+        print("Jak się masz, " + self.name + "?")
+
+    def bye(self):
+        print("Do zobaczenia!")
+
+g = Greetings("Piotr")
+g.greet()
+"""
+
+# P2.45 - Recurrency Fact
+import sys
+
+# sys.setrecursionlimit(100000000)
+sys.set_int_max_str_digits(100000000)
+
+"""
+class Stack:
+    def fact(self, x):
+        if x == 1:
+            return 1
+        else:
+            return x * self.fact(x - 1)
+x = int(input("Podaj liczbę: "))
+s = Stack()
+print(s.fact(x))
+"""
