@@ -1,7 +1,7 @@
 """
 Day: 1/10
 Brakes_Count:
-Goal_Complition: 0/31
+Goal_Complition: 15/31
 Start_Data: 30/03/2025
 End_Data: 10/04/2025
 """
@@ -296,4 +296,14 @@ def bs_iteration(lst: list, element: int) -> int:
 print(bs_iteration([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], 13))
 """
 
+#----------------------------------------------------------------------------------------------------------------------#
+"""
+Day: 2/10
+Brakes_Count:
+Goal_Complition: 15/31
+Start_Data: 30/03/2025
+End_Data: 10/04/2025
+"""
+
+### -------Ogólne------- ###
 
