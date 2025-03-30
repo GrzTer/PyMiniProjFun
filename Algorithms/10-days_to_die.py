@@ -5,7 +5,6 @@ Goal_Complition: 15/31
 Start_Data: 30/03/2025
 End_Data: 10/04/2025
 """
-from collections import defaultdict
 
 ### -------Ogólne------- ###
 # Fibonacci – Rekursja
@@ -225,7 +224,6 @@ print(groupAnagrams(["act","pots","tops","cat","stop","hat"]))
 print(groupAnagrams(["act","pots","tops","cat","stop"]))
 """
 
-
 # Anagram - rekursja
 """
 def groupAnagrams_recursive(strs: list[str]) -> list[list[str]]:
@@ -265,7 +263,6 @@ print(groupAnagrams_recursive(["act", "pots", "tops", "cat", "stop", "hat"]))
 print(groupAnagrams_recursive(["act", "pots", "tops", "cat", "stop"]))
 """
 
-
 ### -------Wyszukiwanie------- ###
 
 # Binarne wyszukiwanie(BS) - rekursja
@@ -296,7 +293,7 @@ def bs_iteration(lst: list, element: int) -> int:
 print(bs_iteration([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], 13))
 """
 
-#----------------------------------------------------------------------------------------------------------------------#
+# ----------------------------------------------------------------------------------------------------------------------#
 """
 Day: 2/10
 Brakes_Count:
@@ -306,4 +303,3 @@ End_Data: 10/04/2025
 """
 
 ### -------Ogólne------- ###
-
