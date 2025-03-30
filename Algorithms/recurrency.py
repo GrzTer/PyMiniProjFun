@@ -137,3 +137,40 @@ x = int(input("Podaj liczbę: "))
 s = Stack()
 print(s.fact(x))
 """
+
+
+##### FreeCodeCamp
+# FactorialNumber
+"""
+def factorial_number(x):
+    if x == 1:
+        return x
+    else:
+        # temp = factorial_number(x-1)
+        temp *= x
+    return temp
+print(factorial_number(5))
+"""
+"""
+def factorial_number(x):
+    if x == 1: return x
+    return x * factorial_number(x-1)
+print(factorial_number(5))
+
+"""
+
+
+# Permutation - recuration
+ """
+def permutation_rec(string: str, pocket="") -> str:
+    if len(string) == 0:
+        print(pocket)
+    else:
+        for s in range(len(string)):
+            letter = string[s]
+            front = string[0:s]
+            back = string[s+1:]
+            together = front + back
+            permutation_rec(together, letter + pocket)
+print(permutation_rec("ABCDE", ""))
+ """
