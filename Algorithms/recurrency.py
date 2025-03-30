@@ -31,14 +31,14 @@ if __name__ == "__main__":
 # Ex. 2-2 - Recursive Binary Search - not commented
 """
 def binary_search(lst, element_to_find, left, right):
-    if left < right:
+    if left <= right:
         mid = (left + right) // 2
         if lst[mid] == element_to_find:
             return mid
         elif element_to_find < lst[mid]:
-            return f"{binary_search(lst, element_to_find, left, mid - 1)}"
+            return binary_search(lst, element_to_find, left, mid - 1)
         else:
-            return f"{binary_search(lst, element_to_find, mid + 1, right)}"
+            return binary_search(lst, element_to_find, mid + 1, right)
     else:
         return -1
 
@@ -138,7 +138,6 @@ s = Stack()
 print(s.fact(x))
 """
 
-
 ##### FreeCodeCamp
 # FactorialNumber
 """
@@ -159,18 +158,19 @@ print(factorial_number(5))
 
 """
 
-
 # Permutation - recuration
- """
+"""
 def permutation_rec(string: str, pocket="") -> str:
-    if len(string) == 0:
-        print(pocket)
-    else:
-        for s in range(len(string)):
-            letter = string[s]
-            front = string[0:s]
-            back = string[s+1:]
-            together = front + back
-            permutation_rec(together, letter + pocket)
-print(permutation_rec("ABCDE", ""))
- """
+   if len(string) == 0:
+       print(pocket)  # Base case: print the completed permutation
+   else:
+       for s in range(len(string)):
+           # letter = string[s]
+           # front = string[0:s]
+           # back = string[s+1:]
+           # together = front + back
+           # permutation_rec(together, letter + pocket)
+           # # Remove the s-th character and add it to the front of pocket
+           #permutation_rec(string[:s] + string[s+1:], string[s] + pocket)
+permutation_rec("123", "")
+# """

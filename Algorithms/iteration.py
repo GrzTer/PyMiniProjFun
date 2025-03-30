@@ -70,23 +70,37 @@ print(factorial_number(5))
 """
 
 # Permutation - iteration
- """
+"""
 from math import factorial
-def permutation_it(string:str)->str:
-    for p in range(factorial(len(string))):
-        print(''.join(string))
-        i = len(string) - 1
-        while i > 0 and string[i - 1] > string[i]:
-            i -= 1
-        string[i:] = reversed(string[i:])
-        if i > 0:
-            q = i
-            while string[i - 1] > string[q]:
-                q += 1
-            temp =  string[i - 1]
-            string[i - 1] = string[q]
-            string[q] = temp
+
+def permutation_it(string: list) -> None:
+   # The loop runs exactly factorial(len(string)) times, generating all permutations.
+   for p in range(factorial(len(string))):
+       # Print the current permutation as a joined string.
+       print(''.join(string))
+       
+       # Step 1: Find the largest index i such that the substring from i-1 to end is not increasing.
+       i = len(string) - 1
+       while i > 0 and string[i - 1] > string[i]:
+           i -= 1
+
+       # Step 2: Reverse the order of the elements from index i to the end of the list.
+       string[i:] = reversed(string[i:])
+
+       # Step 3: If i is greater than 0, find the smallest element in the reversed part
+       # that is greater than the element at i-1 and swap them.
+       if i > 0:
+           q = i
+           while string[i - 1] > string[q]:
+               q += 1
+           # Swap the element at i-1 with the element at q.
+           temp = string[i - 1]
+           string[i - 1] = string[q]
+           string[q] = temp
+
+# Example usage: Convert a string to a list to modify it in place and generate permutations.
 s = 'abc'
 s = list(s)
 permutation_it(s)
- """
+
+"""
