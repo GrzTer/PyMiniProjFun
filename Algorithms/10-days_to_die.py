@@ -106,7 +106,7 @@ def gdc_iteration(a: int, b: int) -> int:
     #     int: Największy wspólny dzielnik a i b.
     while b:
         a, b = b, a % b  # Przypisanie: b staje się nowym a, a reszta z dzielenia a przez b staje się nowym b.
-    return a
+    return b
 """
 # NWD - rekurencja
 '''
