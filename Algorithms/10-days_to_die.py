@@ -313,3 +313,16 @@ def sun(lst: list) -> int:
         return lst[0] + sun(lst[1:])
 print(sun([1,2,3]))
 """
+
+#QuickSort(QS) - dziel i żądź
+"""
+def qs(lst:list)->list:
+    if len(lst) < 2:
+        return lst
+    else:
+        pivot = lst[0]
+        lesser = [i for i in lst[1:] if i <= pivot]
+        greater = [i for i in lst[1:] if i > pivot]
+        return qs(lesser)+[pivot]+qs(greater)
+print(qs([2,1,5,4,3]))
+"""
