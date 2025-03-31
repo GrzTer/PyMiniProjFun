@@ -326,3 +326,28 @@ def qs(lst:list)->list:
         return qs(lesser)+[pivot]+qs(greater)
 print(qs([2,1,5,4,3]))
 """
+
+# silnia
+"""
+def silnia(x:int)->int:
+    if x <= 1:
+        return x
+    else:
+        temp = 1
+        for i in range (2, x+1):
+            temp *= i
+            print(temp)
+        return temp
+    return None
+#silnia(5)
+
+def silnia_rekurencja(x:int)->int:
+    if x <= 1:
+        return x
+    else:
+        return x * silnia_rekurencja(x-1)
+    return None
+print(silnia_rekurencja(6))
+"""
+
+
