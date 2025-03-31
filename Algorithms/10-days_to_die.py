@@ -303,3 +303,13 @@ End_Data: 10/04/2025
 """
 
 ### -------Ogólne------- ###
+
+# sum-rekurencyjne
+"""
+def sun(lst: list) -> int:
+    if not lst:
+        return 0
+    else:
+        return lst[0] + sun(lst[1:])
+print(sun([1,2,3]))
+"""
