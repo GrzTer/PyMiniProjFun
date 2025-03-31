@@ -106,7 +106,7 @@ def gdc_iteration(a: int, b: int) -> int:
     #     int: Największy wspólny dzielnik a i b.
     while b:
         a, b = b, a % b  # Przypisanie: b staje się nowym a, a reszta z dzielenia a przez b staje się nowym b.
-    return b
+    return a
 """
 # NWD - rekurencja
 '''
@@ -350,4 +350,20 @@ def silnia_rekurencja(x:int)->int:
 print(silnia_rekurencja(6))
 """
 
+#nwd
+"""
+def NWD(n: int, m: int) -> int:
+    while m:
+        n, m = m, n % m
+    return n
 
+#print(NWD(66, 6))
+
+def NWD_rekurencja(n: int, m: int) -> int:
+    if m == 0:
+        return n
+    else:
+        return NWD_rekurencja(m, n % m)
+    return None
+print(NWD_rekurencja(24, 66))
+"""
