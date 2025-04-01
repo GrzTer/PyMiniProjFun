@@ -297,7 +297,7 @@ print(bs_iteration([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], 13))
 """
 Day: 2/10
 Brakes_Count:
-Goal_Complition: 15/31
+Goal_Completion: 15/31
 Start_Data: 30/03/2025
 End_Data: 10/04/2025
 """
@@ -314,7 +314,7 @@ def sun(lst: list) -> int:
 print(sun([1,2,3]))
 """
 
-#QuickSort(QS) - dziel i żądź
+# QuickSort(QS) - dziel i żądź
 """
 def qs(lst:list)->list:
     if len(lst) < 2:
@@ -350,7 +350,7 @@ def silnia_rekurencja(x:int)->int:
 print(silnia_rekurencja(6))
 """
 
-#nwd
+# nwd
 """
 def NWD(n: int, m: int) -> int:
     while m:
@@ -367,3 +367,323 @@ def NWD_rekurencja(n: int, m: int) -> int:
     return None
 print(NWD_rekurencja(24, 66))
 """
+
+# ----------------------------------------------------------------------------------------------------------------------#
+"""
+Day: 3/10
+Brakes_Count:
+Goal_Completion: /31
+Start_Data: 30/03/2025
+End_Data: 10/04/2025
+"""
+
+# BS
+"""
+def BS(li: list, n: int) -> int:
+    low, high = 0, len(li) -1
+    while low <= high:
+        mid = (low + high) // 2
+        if li[mid] == n:
+            return mid
+        elif li[mid] > n:
+            high = mid - 1
+        else:
+            low = mid + 1
+    return None
+print(BS([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], 13)) # dla n=13 wynik(index)=12
+"""
+"""
+def BS_r(li: list, n: int, low, high) -> int:
+    if low <= high:
+        mid = (low + high) // 2
+        if li[mid] == n: return mid
+        elif li[mid] > n: return BS_r(li, n, low, mid - 1)
+        else: return BS_r(li, n, mid + 1, high)
+    else:
+        return None
+li = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+print(BS_r(li, 13, 0, len(li) - 1)) # dla n=13 wynik(index)=12
+"""
+
+# fi
+"""
+def fi(x:int)->int:
+    if x <= 1: return 1
+    else:
+        a, b = 0, 1
+        for i in range(2, x + 1):
+            a, b = b, a + b
+        return b
+    return None
+print(fi(6))
+"""
+"""
+def fi_r(n:int)->int:
+    if n <= 1: return 1
+    else: return fi_r(n - 1) + fi_r(n -  2)
+    return None
+print(fi_r(6))
+"""
+
+# silnia
+"""
+def fac(n:int)->int:
+    if n <= 1: return 1
+    else:
+        a = 1
+        for i in range(2, n + 1):
+            a *= i
+        return a
+    return None
+print(fac(5))
+"""
+"""
+def fac_r(n:int) -> int:
+    if n <= 1: return 1
+    else: return n * fac_r(n - 1)
+    return None
+print(fac_r(6))
+"""
+"""
+silnia = lambda x: 1 if x == 0 or x == 1 else x * silnia(x - 1)
+print(silnia(5))
+"""
+
+# QS
+"""
+def qs_r(li: list) -> list:
+    if len(li) < 2:
+        return li
+    else:
+        # p = li[0]
+        # l = [i for i in li[1:] if i <= li[0]]
+        # g = [i for i in li[1:] if i > li[0]]
+        # return qs_r(l + [p] + g)
+
+        return qs_r([i for i in li[1:] if i <= li[0]]) + [li[0]] + qs_r([i for i in li[1:] if i > li[0]])
+    return None
+
+
+print(qs_r([2, 1, 5, 4, 3]))
+"""
+
+# BFS -------raz
+"""
+from collections import deque, defaultdict
+graph = defaultdict(list)
+graph["ty"] = ["alicja", "bartek", "cecylia"]
+graph["bartek"] = ["janusz", "patrycja"]
+graph["alicja"] = ["patrycja"]
+graph["cecylia"] = ["tamara", "jarek"]
+graph["janusz"] = []
+graph["patrycja"] = []
+graph["tamara"] = []
+graph["jarek"] = ["adam"]
+graph["adam"] = []
+
+def bfs(graph: defaultdict) -> bool: # przyjmuje słownik i zwraca wartość boolowską
+    search_queue = deque() # inicjuje kolejkę
+    search_queue += graph["ty"] # dodaje do kolejki osoby 1 rzędowe
+    searched = [] # inicjacja listy sprawdzonych osób
+
+    def person_is_seller(name): return len(name) == 4 # funkcja zwracająca osobę sprzedającą mango
+
+    while search_queue: # Dopóki kolejka nie jest pusta
+        person = search_queue.popleft() # pobranie pierwszego pobranego elementu z kolejki
+        if not person in searched:
+            if person_is_seller(person): # warunek szukający sprzedawdcy mango
+                print(f"{person} sprzedaje mango!") # wypisanie napisu np. "adam sprzedaje mango!"
+                return True # zwrócenie wartości True i zakończenie programu
+            else:
+                search_queue += graph[person] # Przypadek, gdy osoba nie sprzedaje mango. Dodanie wszystkich znajomyc tej osoby do kolejki przeszukania
+                searched.append(person)
+    return False # zwracanie wartości False dla barku osoby w kolejce, która sprzedaje mango
+print(bfs(graph)) # wywołanie funkcji z parametrem graph: defaultdict
+"""
+"""
+graf = defaultdict(list)
+graf["pobodka"] = ["cwiczenia", "mycie zebow", "spakowanie drugiego sniadania"]
+graf["cwiczenia"] = ["prysznic"]
+graf["prysznic"] = ["ubieranie sie"]
+graf["mycie zebow"] = ["sniadanie"]
+graf["prysznic"] = []
+
+def bfs_cwiczenie(graf: defaultdict) -> bool:
+    kolejka = deque()
+    kolejka += graf["pobodka"]
+    zrobione = []
+
+    def czy_zrobione(czynnosc): return czynnosc[-1] == "w"
+
+    while kolejka:
+        czynnosc = kolejka.popleft()
+        if not czynnosc in zrobione:
+            if czy_zrobione(czynnosc):
+                print(f"{czynnosc} wykonane! Możesz zjeść śniadanie")
+                return True
+            else:
+                kolejka += graf[czynnosc]
+                zrobione.append(czynnosc)
+    return False
+print(bfs_cwiczenie(graf))
+# lista posortowana topologicznie:
+#     1. pobodka
+#     2. cwiczenia
+#     3. mycie zebow
+#     4. spakowanie drugioego sniadania
+#     5. prysznic
+#     6. sniadanie
+#     7. ubieranie sie
+
+#    ćwiczenia <- prysznic <- ubieranie się
+#       /
+#     pobodka <- mycie zębów <- śniadanie
+#       /
+#   spakowanie drugioego sniadania
+"""
+
+# Dijkstra
+"""
+graph = {}
+
+graph["start"] = {}
+graph["start"]["a"] = 6
+graph["start"]["b"] = 2
+
+graph["a"] = {}
+graph["a"]["meta"] = 1
+
+graph["b"] = {}
+graph["b"]["a"] = 3
+graph["b"]["meta"] = 5
+
+graph["meta"] = {}
+
+infinity = float("inf")
+costs = {}
+costs["a"] = 6
+costs["b"] = 2
+costs["meta"] = infinity
+
+parents = {}
+parents["a"] = "start"
+parents["b"] = "start"
+parents["meta"] = None
+
+processed = []
+
+
+def dijkstra(graph):
+    def find_lowest_cost_node(costs):
+        lowest_cost = infinity
+        lowest_cost_node = None
+        for node in costs: # Przegląda każdy węzeł po kolei
+            cost = costs[node]
+            if cost < lowest_cost and node not in processed: # Jeśli jest to najniższy z dotychczasowych kosztów i nie został jeszcze przetworzony...
+                lowest_cost = cost # ...ustaw go jako nowy najtańszy węzeł
+                lowest_cost_node = node
+        return lowest_cost_node
+
+
+    node = find_lowest_cost_node(costs) # Znajduje najtańszy węzeł, który nie został jeszcze przetworzony,
+    while node is not None: # Jeśli wszystkie węzłu zostały przetworzone, następuje zakończenie pętli,
+        cost = costs[node]
+        neighbors = graph[node]
+        for neighbor in neighbors.keys(): # Przegląda wszystkich sąsiadów danego węzła,
+            new_cost = cost + neighbors[neighbor]
+            if costs[neighbor] > new_cost: # Jeśli dotarcie do tego sąsiada jest tańsze drogą przez ten węzeł...
+                costs[neighbor] = new_cost # ...zaktualizuj koszt tego węzła,
+                parents[neighbor] = node # Węzeł ten staje się nowym rodzicem tego sąsiada,
+        processed.append(node) # Oznaczenie węzła jako przetworzonego,
+        node = find_lowest_cost_node(costs) # Znajduje następny węzeł do przetworzenia i wraca na początek pętli
+    # Drukowanie wyników
+    print("Koszty:", costs)
+    print("Rodzice:", parents)
+dijkstra(graph)
+"""
+
+# bs_i&bs_r
+"""
+def bs_i(l:list,n:int)->int:
+    low, high = 0, len(l) -1
+    while low <= high:
+        mid = (low + high) // 2
+        if l[mid] == n: return mid
+        elif l[mid] < n: low = mid + 1
+        else: high = mid - 1
+    return None
+print(bs_i([-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9],-4))
+"""
+"""
+def bs_r(lst:list,x:int,l:int,h:int)->int:
+    if l<=h:
+        m = (l+h) //2
+        if lst[m] == x: return m
+        elif lst[m] < x: return bs_r(lst,x,m+1,h)
+        else: return bs_r(lst,x,l,m-1)
+lst = [-9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+print(bs_r(lst,-4, 0, len(lst)-1))
+"""
+
+# rev list of int recur
+"""
+def rev_lst_of_int_r(lst:list, left:int, right:int)->list:
+    if left < right:
+        lst[left], lst[right] = lst[right], lst[left]
+        rev_lst_of_int_r(lst, left + 1, right - 1)
+lst = [-9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+rev_lst_of_int_r(lst, 0, len(lst) - 1 )
+for item in lst:
+    print(item)
+"""
+
+# NWD-iter-recur
+"""
+def NWD_lub_GCD(a:int, b:int)->int:
+    while b:
+        a, b = b, a % b
+    return a
+print(NWD_lub_GCD(101234543248, 24))
+"""
+"""
+def NWD_lub_GCD_r(a:int, b:int)->int:
+    if b ==0: return a
+    else: return NWD_lub_GCD_r(b, a % b)
+print(NWD_lub_GCD_r(101234543248, 24))
+"""
+"""
+def NWD_raz_jeszcze_r(a:int, b:int)->int:
+    if b == 0: return a
+    else: return NWD_raz_jeszcze_r(b, a % b)
+print(NWD_raz_jeszcze_r(101234543248, 24))
+"""
+"""
+def NWD_raz_jeszcze_i(a:int,b:int)->int:
+    while b: a, b = b, a % b;
+    return a
+print(NWD_raz_jeszcze_i(101234543248, 24))
+"""
+
+# qs
+"""
+def qs(arr: list) -> list:
+    if len(arr) < 2: return arr
+    else: return qs([i for i in arr[1:] if i <= arr[0]]) + [arr[0]] + qs([i for i in arr[1:] if i > arr[0]])
+print(qs([3,1,2,4,0,9,-10,-1,6,2,13,6,8,7]))
+"""
+"""
+def qs(arr: list) -> list: #Zamiast listy to set, by pozbyć się powtórek
+    arr = list(set(arr))  # Konwertowanie listy na zestaw i z powrotem na listę (usuwanie duplikatów)
+    if len(arr) < 2: return arr
+    else: return qs([i for i in arr[1:] if i <= arr[0]]) + [arr[0]] + qs([i for i in arr[1:] if i > arr[0]])
+
+print(qs([3, 1, 2, 4, 0, 9, -10, -1, 6, 2, 13, 6, 8, 7]))
+"""
+
+quick_sort = lambda arr: arr if len(arr) < 2 else quick_sort([i for i in arr[1:] if i <= arr[0]]) + [arr[0]] + [i for i in arr[1:] if i > arr[0]]
+print(f"Posortowana lista - quicksort: {quick_sort([3, 1, 2, 4, 0, 9, -10, -1, 6, 2, 13, 6, 8, 7])}")
+
+
+
+
+
