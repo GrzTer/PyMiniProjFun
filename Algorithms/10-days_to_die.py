@@ -5,6 +5,7 @@ Goal_Complition: 15/31
 Start_Data: 30/03/2025
 End_Data: 10/04/2025
 """
+from black.trans import defaultdict
 
 ### -------Ogólne------- ###
 # Fibonacci – Rekursja
@@ -679,11 +680,29 @@ def qs(arr: list) -> list: #Zamiast listy to set, by pozbyć się powtórek
 
 print(qs([3, 1, 2, 4, 0, 9, -10, -1, 6, 2, 13, 6, 8, 7]))
 """
-
+"""
 quick_sort = lambda arr: arr if len(arr) < 2 else quick_sort([i for i in arr[1:] if i <= arr[0]]) + [arr[0]] + [i for i in arr[1:] if i > arr[0]]
 print(f"Posortowana lista - quicksort: {quick_sort([3, 1, 2, 4, 0, 9, -10, -1, 6, 2, 13, 6, 8, 7])}")
+"""
+# Bin
+"""
+def bin_konwert(x):
+    while x:
+        x //= 2
+        print(x % 2)
+    return None
+bin_konwert(100)
+"""
 
-
-
-
-
+# Anagram
+"""
+def an(strs: list[str]) -> list[list[str]]:
+    array = defaultdict(list) # Utworzyć słownik z defaultową wartością ustawioną na listę
+    for s in strs: # Przejdź po każdym słowie z pobranej listy
+        key = [0] * 26 #
+        for w in s:
+            key[ord(w) - ord("a")] += 1
+        array[tuple(key)].append(s)
+    return array.values()
+print(an(["act", "pots", "tops", "cat", "stop", "hat"]))
+"""
