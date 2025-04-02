@@ -753,8 +753,8 @@ def qs(arr:list)->list:
 print(qs(["mt", "wa", "or", "id", "nv", "ut", "ca", "az"]))
 """
 
-
 # bs
+"""
 def bs_i(arr: list, element: int) -> int:
     low = 0
     high = len(arr) - 1
@@ -764,12 +764,70 @@ def bs_i(arr: list, element: int) -> int:
         elif arr[mid] < element: low = mid + 1
         else: high = mid - 1
 print(bs_i([-10, -1, 0, 1, 2, 2, 3, 4, 9, 6, 13, 6, 8, 7], 3))
+"""
+
+# Anagram
+"""
+def an(strs: list[str]) -> list[list[str]]:
+    array = defaultdict(list)
+    for st in strs:
+        key = [0] * 26
+        for s in st:
+            key[ord(s) - ord("a")] += 1
+        array[tuple(key)].append(st)
+    return array.values()
+print(an(["act", "pots", "tops", "cat", "stop", "hat"]))
+"""
+
+# ProblemPlecaka-Zachłanne
+"""
+def problem_plecaka_zachlannie():
+    produkty = [{"nazwa": "gitara", "wartosc": 1500, "waga": 1},
+                {"nazwa": "stereo", "wartosc": 3000, "waga": 4},
+                {"nazwa": "laptop", "wartosc": 2000, "waga": 3}]
+    
+    
+    def stosunek_wartosc_waga(produkt): return produkt["wartosc"] / produkt["waga"]
+    
+    
+    max_waga = 4
+    current_waga = 0
+    current_wartosc = 0
+    wybrane_produkty = []
+    
+    for produkt in produkty:
+        if current_waga + produkt["waga"] <= max_waga:
+            wybrane_produkty.append(produkt)
+            current_waga += produkt["waga"]
+            current_wartosc += produkt["wartosc"]
+    
+    print("Wybrane produkty: ")
+    for produkt in wybrane_produkty:
+        print(f"- {produkt['nazwa']}, Wartość: {produkt['wartosc']}zł, Waga: {produkt['waga']}kg")
+    print(f"\nŁączna wartość: {current_wartosc}zł")
+    print(f"\nŁączna waga: {current_waga}kg")
+"""
 
 
+def knapsack(weights, values, capacity):
+    n = len(weights)
+    dp = [[0 for _ in range(capacity + 1)] for _ in range(n + 1)]
+
+    for i in range(1, n + 1):
+        for w in range(1, capacity + 1):
+            if weights[i - 1] > w:
+                dp[i][w] = dp[i - 1][w]
+            else:
+                dp[i][w] = max(dp[i - 1][w], values[i - 1] + dp[i - 1][w - weights[i - 1]])
+
+    return dp[n][capacity]
 
 
-
-
+# Test
+weights = [1, 3, 4, 5]
+values = [1, 4, 5, 7]
+capacity = 7
+print(knapsack(weights, values, capacity))  # Wynik: 9
 
 
 
