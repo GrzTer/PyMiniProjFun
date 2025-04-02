@@ -706,3 +706,27 @@ def an(strs: list[str]) -> list[list[str]]:
     return array.values()
 print(an(["act", "pots", "tops", "cat", "stop", "hat"]))
 """
+
+
+# ----------------------------------------------------------------------------------------------------------------------#
+"""
+Day: 4/10
+Brakes_Count:
+Goal_Completion: /31
+Start_Data: 30/03/2025
+End_Data: 10/04/2025
+"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
