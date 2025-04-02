@@ -5,7 +5,6 @@ Goal_Complition: 15/31
 Start_Data: 30/03/2025
 End_Data: 10/04/2025
 """
-from black.trans import defaultdict
 
 ### -------Ogólne------- ###
 # Fibonacci – Rekursja
@@ -707,7 +706,6 @@ def an(strs: list[str]) -> list[list[str]]:
 print(an(["act", "pots", "tops", "cat", "stop", "hat"]))
 """
 
-
 # ----------------------------------------------------------------------------------------------------------------------#
 """
 Day: 4/10
@@ -716,6 +714,39 @@ Goal_Completion: /31
 Start_Data: 30/03/2025
 End_Data: 10/04/2025
 """
+
+
+# Algorytm zachłanny - Problem pokrycia zbioru - 146.p - Algorytmy :ilustrowany
+"""
+def radio_problem():
+    states_needed = set(["mt", "wa", "or", "id", "nv", "ut", "ca", "az"])
+
+    stations = {}
+    stations["kone"] = set(["id", "nv", "ut"])
+    stations["ktwo"] = set(["wa", "id", "mt"])
+    stations["kthree"] = set(["or", "nv", "ca"])
+    stations["kfour"] = set(["nv", "ut"])
+    stations["kfive"] = set(["ca", "az"])
+
+    final_stations = set()
+
+    while states_needed:
+        best_station = None
+        states_covered = set()
+        for station, states in stations.items():
+            covered = states_needed & states
+            if len(covered) > len(states_covered):
+                best_station = station
+                states_covered = covered
+        states_needed -= states_covered
+        final_stations.add(best_station)
+    print(final_stations)
+radio_problem()
+"""
+
+
+
+
 
 
 
