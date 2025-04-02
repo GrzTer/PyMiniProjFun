@@ -715,7 +715,6 @@ Start_Data: 30/03/2025
 End_Data: 10/04/2025
 """
 
-
 # Algorytm zachłanny - Problem pokrycia zbioru - 146.p - Algorytmy :ilustrowany
 """
 def radio_problem():
@@ -744,10 +743,27 @@ def radio_problem():
 radio_problem()
 """
 
+# qs
+"""
+def qs(arr:list)->list:
+    print(arr)
+    if len(arr) < 2: return arr
+    else: return qs([i for i in arr[1:] if i <= arr[0]]) + [arr[0]] + qs([i for i in arr[1:] if i > arr[0]])
+
+print(qs(["mt", "wa", "or", "id", "nv", "ut", "ca", "az"]))
+"""
 
 
-
-
+# bs
+def bs_i(arr: list, element: int) -> int:
+    low = 0
+    high = len(arr) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == element: return mid
+        elif arr[mid] < element: low = mid + 1
+        else: high = mid - 1
+print(bs_i([-10, -1, 0, 1, 2, 2, 3, 4, 9, 6, 13, 6, 8, 7], 3))
 
 
 
