@@ -543,7 +543,7 @@ print(bfs_cwiczenie(graf))
 """
 
 # Dijkstra
-"""
+# """
 graph = {}
 
 graph["start"] = {}
@@ -558,7 +558,7 @@ graph["b"]["a"] = 3
 graph["b"]["meta"] = 5
 
 graph["meta"] = {}
-
+"""
 infinity = float("inf")
 costs = {}
 costs["a"] = 6
@@ -808,7 +808,8 @@ def problem_plecaka_zachlannie():
     print(f"\nŁączna waga: {current_waga}kg")
 """
 
-
+# Knapsack - kradzież z plecakiem
+"""
 def knapsack(weights, values, capacity):
     n = len(weights)
     dp = [[0 for _ in range(capacity + 1)] for _ in range(n + 1)]
@@ -828,10 +829,115 @@ weights = [1, 3, 4, 5]
 values = [1, 4, 5, 7]
 capacity = 7
 print(knapsack(weights, values, capacity))  # Wynik: 9
+"""
 
+# ----------------------------------------------------------------------------------------------------------------------#
+"""
+Day: 5/10
+Brakes_Count:
+Goal_Completion: /31
+Start_Data: 30/03/2025
+End_Data: 10/04/2025
+"""
 
+# Bubble Sort
+"""
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        # Flaga informująca, czy dokonano zamiany
+        swapped = False
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                # Zamiana elementów
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+                swapped = True
+        # Jeśli w danym przebiegu nie dokonano zamiany, lista jest już posortowana
+        if not swapped:
+            break
+        print(arr)
+    return arr
+lista = [64, 34, 25, 12, 22, 11, 90]
+posortowana_lista = bubble_sort(lista)
+print("Posortowana lista:", posortowana_lista)
+"""
 
+# silnia
+"""
+def s( x: int ) -> int:
+    if x == 0 or x == 1: return 1
+    else:
+        temp = 1
+        for i in range(2, x + 1):
+            temp *= i
+            print(temp)
+        return temp
+print(s(1))
+"""
+"""
+def s_r(x: int) -> int:
+    if x == 0 or x == 1: return 1
+    else: return x * s_r(x - 1)
+print(s_r(5))
+"""
+"""
+import heapq
 
+def dijkstra(graph, start):
+    queue = [(0, start)]
+    distances = {start: 0}
+    while queue:
+        (dist, node) = heapq.heappop(queue)
+        for neighbor, weight in graph[node]:
+            distance = dist + weight
+            if neighbor not in distances or distance < distances[neighbor]:
+                distances[neighbor] = distance
+                heapq.heappush(queue, (distance, neighbor))
+    return distances
+### ????????
+"""
 
+# NWD
+"""
+def najwiekszy_wspolny_dzielnik(a: int, b: int) -> int:
+    while b:
+        a, b = b, a % b
+    return a
+print(najwiekszy_wspolny_dzielnik(18, 81))
+"""
 
+# odwraca ciąg znaków
+"""
+def o_c_z(strs: str) -> str:
+    return strs[::-1]
+print(o_c_z("Jaka to Melodia!?!"))
+"""
 
+# licz ciąg znaków
+"""
+def count_string(strs: str, char: str) -> int:
+    return strs.count(char)
+print(count_string("Jaka to Melodia!?!", "a"))
+"""
+
+# Przykład DFS:
+"""
+def dfs(graph, start, visited=None):
+    if visited is None:
+        visited = set()
+    visited.add(start)
+    for neighbor in graph[start]:
+        if neighbor not in visited:
+            dfs(graph, neighbor, visited)
+"""
+
+#slow w tekscie
+"""
+def slow_w_tekscie(tekst: str) -> int:
+    return tekst.count(" ") + 1
+print(slow_w_tekscie("Jaka to Melodia i coś jeszcze!?!"))
+"""
+"""
+def count_words(text):
+    return len(text.split())
+"""
