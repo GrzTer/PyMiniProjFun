@@ -941,16 +941,26 @@ print(slow_w_tekscie("Jaka to Melodia i coś jeszcze!?!"))
 def count_words(text):
     return len(text.split())
 """
-
+"""
 a = [2,1,43,56,234,12]
 a1 = map(lambda x: x * 2, a)
 a2 = reduce(lambda n,y: n+y,a1)
 print(a2)
+"""
+"""
+def bs(li: list,x: int) -> int:
+    l = 0
+    h = len(li) - 1
+    while l <= h:
+        mid = (l+h)//2
+        if li[mid] == x: return mid
+        elif li[mid] < x: l = mid + 1
+        else: h = mid - 1
+print(bs([1,2,3,4,5,6,7,8,9,10],3))
+"""
 
-
-
-
-
-
-
-
+def qs(arr: list) -> list:
+    arr = list(set(arr)) # Jeżeli nie chcemy duplikatów
+    if len(arr) < 2: return arr
+    else: return qs([i for i in arr[1:] if i <= arr[0]]) + [arr[0]] + qs([i for i in arr[1:] if i > arr[0]])
+print(qs([1,12212,31,231,312,3,125234,234,233,12312,3,53442314,23,233,123,13,123,123,12,234,12312,312,312,312,23423,323,3123,12]))
