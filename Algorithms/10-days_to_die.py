@@ -5,6 +5,7 @@ Goal_Complition: 15/31
 Start_Data: 30/03/2025
 End_Data: 10/04/2025
 """
+from functools import reduce
 
 ### -------Ogólne------- ###
 # Fibonacci – Rekursja
@@ -543,7 +544,7 @@ print(bfs_cwiczenie(graf))
 """
 
 # Dijkstra
-# """
+"""
 graph = {}
 
 graph["start"] = {}
@@ -558,7 +559,6 @@ graph["b"]["a"] = 3
 graph["b"]["meta"] = 5
 
 graph["meta"] = {}
-"""
 infinity = float("inf")
 costs = {}
 costs["a"] = 6
@@ -941,3 +941,16 @@ print(slow_w_tekscie("Jaka to Melodia i coś jeszcze!?!"))
 def count_words(text):
     return len(text.split())
 """
+
+a = [2,1,43,56,234,12]
+a1 = map(lambda x: x * 2, a)
+a2 = reduce(lambda n,y: n+y,a1)
+print(a2)
+
+
+
+
+
+
+
+
