@@ -965,3 +965,88 @@ def qs(arr: list) -> list:
     else: return qs([i for i in arr[1:] if i <= arr[0]]) + [arr[0]] + qs([i for i in arr[1:] if i > arr[0]])
 print(qs([1,12212,31,231,312,3,125234,234,233,12312,3,53442314,23,233,123,13,123,123,12,234,12312,312,312,312,23423,323,3123,12]))
 """
+
+
+
+# ----------------------------------------------------------------------------------------------------------------------#
+"""
+Day: 6/10
+Brakes_Count:
+Goal_Completion: /31
+Start_Data: 30/03/2025
+End_Data: 10/04/2025
+"""
+
+#--__--#
+
+
+"""
+def count_word(text, word):
+    return text.lower().split().count(word.lower())
+print(count_word("Jaka to Melodia i coś jeszcze!?!", "to"))
+"""
+
+
+#Algorytmy i Struktury Danych
+# - Przygotowanie do Zawodów III Stopnia Olimpiady Innowacji Technicznych 2024/25
+
+# Quick Sort (QS) - klasa O(n log n)
+"""
+def quick_sort(array: list) -> list:
+    # array = list(set(array)) # Jeżeli chce się nie mieć powtórek
+    if len(array) < 2: return array # 0 lub 1 elementowe tablice są już "posortowane", nie ma sensu się nimi zajmować...
+    # Dodatkowo jest to przypadek bazowy, dla funkcji rekurencyjnej
+
+    return quick_sort([element for element in array[1:] if element <= array[0]]) + [array[0]] + quick_sort([element for element in array[1:] if element > array[0]])
+    # Zwracana jest lista przez konkatenację mniejszych i większych elementów od pierwszego elementu z brzegu wejściowej tablicy...
+    # z pierwszym elementem listy między nimi
+print(quick_sort([12,23,5,2,1,567,2,45,322,4,1,5,341,6,14,7,24,24,2,1234,45,34,234,124]))
+"""
+
+# Bubble Sort (BS) - klasa O( n^2 )
+"""
+def bubble_sort(array: list) -> list:
+    if len(array) < 2: return array
+    for i in range(len(array)):
+        swapped = False
+        for j in range(len(array) - i - 1):
+            if array[j] > array[j+1]:
+                array[j], array[j+1] = array[j+1], array[j]
+                swapped = True
+        if not swapped:
+            break
+    return array
+print(bubble_sort([64, 34, 25, 12, 22, 11, 90]))
+"""
+
+# Insert Sort (IS) - klasa O( n^2 )
+"""
+def insert_sort(array:list) -> list:
+    if len(array) < 2: return array
+    for i in range(len(array)):
+        j = i
+        temp = array[j]
+        while j > 0 and array[j-1] > temp:
+            array[j] = array[j-1]
+            j -= 1
+        array[j] = temp
+    return array
+print(insert_sort([64, 34, 25, 12, 22, 11, 90]))
+"""
+
+# Merge Sort (MS) - klasa O( n log n )
+""" Sensu nie ma się na razie tego uczyć, za duże to jest
+def merge_sort(left: int, right: int) -> list:
+    if len(array) < 2: return array
+    elif left < right:
+        mid = (left+right) // 2
+        merge_sort(left, mid)
+        merge_sort(mid+1, right)
+        scalaj(left, mid, right)
+"""
+
+
+
+
+
+
