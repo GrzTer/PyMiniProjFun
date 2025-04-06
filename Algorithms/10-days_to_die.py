@@ -5,7 +5,7 @@ Goal_Complition: 15/31
 Start_Data: 30/03/2025
 End_Data: 10/04/2025
 """
-from functools import reduce
+
 
 ### -------Ogólne------- ###
 # Fibonacci – Rekursja
@@ -559,6 +559,7 @@ graph["b"]["a"] = 3
 graph["b"]["meta"] = 5
 
 graph["meta"] = {}
+
 infinity = float("inf")
 costs = {}
 costs["a"] = 6
@@ -931,7 +932,7 @@ def dfs(graph, start, visited=None):
             dfs(graph, neighbor, visited)
 """
 
-#slow w tekscie
+# slow w tekscie
 """
 def slow_w_tekscie(tekst: str) -> int:
     return tekst.count(" ") + 1
@@ -966,8 +967,6 @@ def qs(arr: list) -> list:
 print(qs([1,12212,31,231,312,3,125234,234,233,12312,3,53442314,23,233,123,13,123,123,12,234,12312,312,312,312,23423,323,3123,12]))
 """
 
-
-
 # ----------------------------------------------------------------------------------------------------------------------#
 """
 Day: 6/10
@@ -977,7 +976,7 @@ Start_Data: 30/03/2025
 End_Data: 10/04/2025
 """
 
-#--__--#
+# --__--#
 
 
 """
@@ -986,8 +985,7 @@ def count_word(text, word):
 print(count_word("Jaka to Melodia i coś jeszcze!?!", "to"))
 """
 
-
-#Algorytmy i Struktury Danych
+# Algorytmy i Struktury Danych
 # - Przygotowanie do Zawodów III Stopnia Olimpiady Innowacji Technicznych 2024/25
 
 # Quick Sort (QS) - klasa O(n log n)
@@ -1044,6 +1042,776 @@ def merge_sort(left: int, right: int) -> list:
         merge_sort(mid+1, right)
         scalaj(left, mid, right)
 """
+
+# ----------------------------------------------------------------------------------------------------------------------#
+"""
+Day: 7/10
+Brakes_Count:
+Goal_Completion: /31
+    - [X] Sort: QS, BS, IS,
+    - [X] Search: BS
+    - [X] Graph: BFS, DFS, Dij, Kru
+    - [-] Geom.: Comex hull
+    - [X] Common: GCD, Fi,!
+    - [ ] Math: KMP, Rab-Karp, Mill-Rab
+Start_Data: 30/03/2025
+End_Data: 10/04/2025
+"""
+
+# --_----------________---__________-----------_--#
+
+##-SORT-##
+
+# QS - O( n log n )
+"""
+def qs(arr: list) -> list:
+    if len(arr) < 2: return arr
+    return qs([element for element in arr[1:] if element <= arr[0]]) + [arr[0]] + qs(
+        [element for element in arr[1:] if element > arr[0]])
+print(qs([3, 1, 2, 5, 9, 8, 6, 7]))
+"""
+
+# BS - O( n**2 )
+"""
+def bs(arr: list) -> list:
+    if len(arr) < 2: return arr
+    for i in range(len(arr)):
+        swapped = False
+        for j in range(0, len(arr) - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+        if not swapped:
+            break
+    return arr
+print(bs([3, 1, 2, 5, 9, 8, 6, 7]))
+"""
+"""
+def bs(arr: list) -> list:
+    if len(arr) < 2: return arr
+    for i in range(len(arr)):
+        swapped = False
+        for j in range(0, len(arr) - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+        if not swapped:
+            break
+    return arr
+print(bs([3, 1, 2, 5, 9, 8, 6, 7]))
+"""
+
+# IS - O( n**2 )
+"""
+def i_s(arr: list) -> list:
+    if len(arr) < 2: return arr
+    for i in range(len(arr)):
+        j = i
+        key = arr[j]
+        while j > 0 and arr[j - 1] > key:
+            arr[j] = arr[j - 1]
+            j -= 1
+        arr[j] = key
+    return arr
+print(i_s([64, 34, 25, 12, 22, 11, 90]))
+"""
+"""
+def i_s(arr: list) -> list:
+    if len(arr) < 2: return arr
+    for i in range(len(arr)):
+        j = i
+        key = arr[j]
+        while j > 0 and arr[j - 1] > key:
+            arr[j] = arr[j - 1]
+            j -= 1
+        arr[j] = key
+    return arr
+print(i_s([64, 34, 25, 12, 22, 11, 90]))
+"""
+
+##-SEARCH-##
+
+# BS - O( log n )
+"""
+def bs(arr: list, element: int) -> int:
+    low = 0
+    high = len(arr) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == element:
+            return mid
+        elif arr[mid] < element:
+            low = mid + 1
+        else:
+            high = mid - 1
+print(bs([11, 12, 22, 25, 34, 64, 90], 34))
+"""
+# LS - śmieszne:
+# ...w przypadku konwersji generatora na listę (np. za pomocą list(a)), złożoność przestrzenna będzie O(n),
+# ponieważ przechowuje wszystkie wyniki w pamięci.
+# Jednak sama funkcja ls jako generator ma złożoność przestrzenną O(1).
+"""
+def ls(arr: list, element: int):
+    return (i for i in range(len(arr)) if arr[i] == element)
+a = ls([11, 12, 22, 25, 34, 64, 90], 34)
+print(*list(a))
+"""
+
+##-GRAPH-##
+
+# Roy-Warshall/Floyd-Warshall - O( n**3 ) MAGIAAA
+"""
+graph = [
+    [0, 3, float('inf'), float('inf')],
+    [2, 0, float('inf'), 1],
+    [float('inf'), 7, 0, 2],
+    [6, float('inf'), 3, 0]
+]
+def roy_warshall(graph):
+    n = len(graph)
+    # Tworzymy kopię grafu, żeby nie modyfikować oryginalnej macierzy
+    dist = [row[:] for row in graph]
+
+    for k in range(n):
+        for i in range(n):
+            for j in range(n):
+                if dist[i][j] > dist[i][k] + dist[k][j]:
+                    dist[i][j] = dist[i][k] + dist[k][j]
+    return dist
+print(roy_warshall(graph))
+"""
+
+# BFS - O( V + E ) V = liczba wierzchołków, E = liczba krawędzi
+# - zazwyczaj iteracyjnie, przez prostotę
+"""
+graph = {
+    0: [1, 2],
+    1: [0, 3, 4],
+    2: [0, 4],
+    3: [1],
+    4: [1, 2]
+}
+from collections import deque
+def bfs(graph, start):
+    # Kolejka do przechowywania wierzchołków do odwiedzenia
+    queue = deque([start])
+
+    # Zbiór odwiedzonych wierzchołków
+    visited = set([start])
+
+    # Wynik - lista odwiedzonych wierzchołków
+    result = []
+
+    while queue:
+        # Pobieramy wierzchołek z początku kolejki
+        node = queue.popleft()
+        result.append(node)
+
+        # Przechodzimy przez sąsiadów wierzchołka
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+
+    return result
+result = bfs(graph, 0)
+print(result)
+"""
+
+# DFS -  O(V + E) - zazwyczaj rekurencyjnie, przez naturę algorytmu
+
+"""
+graph = {
+    0: [1, 2],
+    1: [0, 3, 4],
+    2: [0, 4],
+    3: [1],
+    4: [1, 2]
+}
+
+
+def dfs(graph, start, visited=None):
+    if visited is None:
+        visited = set()  # Zbiór odwiedzonych wierzchołków
+
+    # Oznaczamy wierzchołek jako odwiedzony
+    visited.add(start)
+
+    # Wydrukujemy lub przechowamy odwiedzony wierzchołek
+    print(start, end=' ')
+
+    # Rekurencyjnie odwiedzamy sąsiadów
+    for neighbor in graph[start]:
+        if neighbor not in visited:
+            dfs(graph, neighbor, visited)
+
+    return visited
+visited = dfs(graph, 0)
+
+print("\nOdwiedzone wierzchołki:", visited)
+"""
+
+# Dijkstra - O( (V + E) log V )
+"""
+# Reprezentacja grafu jako słownik: każdy wierzchołek mapowany jest na listę (sąsiad, waga)
+graph = {
+    'A': [('B', 5), ('C', 1)],
+    'B': [('A', 5), ('C', 2), ('D', 1)],
+    'C': [('A', 1), ('B', 2), ('D', 4), ('E', 8)],
+    'D': [('B', 1), ('C', 4), ('E', 3), ('F', 6)],
+    'E': [('C', 8), ('D', 3)],
+    'F': [('D', 6)]
+}
+
+import heapq
+
+def dijkstra(graph, start):
+
+    # Inicjalizacja odległości: początkowo nieskończoność dla wszystkich wierzchołków, oprócz startowego
+    distances = {vertex: float('inf') for vertex in graph}
+    distances[start] = 0
+
+    # Kolejka priorytetowa: przechowuje krotki (aktualna_odległość, wierzchołek)
+    priority_queue = [(0, start)]
+
+    while priority_queue:
+        current_distance, current_vertex = heapq.heappop(priority_queue)
+        # Jeśli znaleziono już lepszą ścieżkę, pomijamy bieżący wierzchołek
+        if current_distance > distances[current_vertex]:
+            continue
+        # Sprawdzamy sąsiadów bieżącego wierzchołka
+        for neighbor, weight in graph[current_vertex]:
+            distance = current_distance + weight
+            # Jeśli znaleziono krótszą ścieżkę do sąsiada, aktualizujemy odległość i dodajemy do kolejki
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+                heapq.heappush(priority_queue, (distance, neighbor))
+    return distances
+start_vertex = 'A'
+shortest_paths = dijkstra(graph, start_vertex)
+print("Najkrótsze ścieżki od", start_vertex, ":", shortest_paths)
+"""
+"""
+def dijkstra_simple(graph, start):
+    # Inicjalizacja odległości: wszystkie wierzchołki mają początkowo nieskończoność, oprócz startowego
+    distances = {vertex: float('inf') for vertex in graph}
+    distances[start] = 0
+
+    # Zbiór odwiedzonych wierzchołków
+    visited = set()
+
+    while len(visited) < len(graph):
+        # Wybieramy nieodwiedzony wierzchołek o najmniejszej odległości
+        current = None
+        current_distance = float('inf')
+        for vertex in graph:
+            if vertex not in visited and distances[vertex] < current_distance:
+                current_distance = distances[vertex]
+                current = vertex
+
+        # Jeśli nie znaleziono żadnego wierzchołka, kończymy działanie (pozostałe są nieosiągalne)
+        if current is None:
+            break
+
+        # Oznaczamy bieżący wierzchołek jako odwiedzony
+        visited.add(current)
+
+        # Aktualizujemy odległości dla sąsiadów bieżącego wierzchołka
+        for neighbor, weight in graph[current]:
+            if neighbor in visited:
+                continue
+            new_distance = distances[current] + weight
+            if new_distance < distances[neighbor]:
+                distances[neighbor] = new_distance
+
+    return distances
+# Przykład użycia:
+graph = {
+    'A': [('B', 5), ('C', 1)],
+    'B': [('A', 5), ('C', 2), ('D', 1)],
+    'C': [('A', 1), ('B', 2), ('D', 4), ('E', 8)],
+    'D': [('B', 1), ('C', 4), ('E', 3), ('F', 6)],
+    'E': [('C', 8), ('D', 3)],
+    'F': [('D', 6)]
+}
+start_vertex = 'A'
+shortest_paths = dijkstra_simple(graph, start_vertex)
+print("Najkrótsze ścieżki od", start_vertex, ":", shortest_paths)
+"""
+
+# Jeszcze prosciej Dijkstra
+"""
+def dijkstra(graph, start):
+    # Inicjalizacja odległości: dla każdego wierzchołka nieskończoność, dla startu 0
+    dist = {v: float('inf') for v in graph}
+    dist[start] = 0
+    used = set()
+    while True:
+        # Wybieramy nieprzetworzony wierzchołek o najmniejszej odległości
+        u = None
+        for v in graph:
+            if v not in used and (u is None or dist[v] < dist[u]):
+                u = v
+        if u is None: break
+        used.add(u)
+        for v, weight in graph[u]:
+            dist[v] = min(dist[v], dist[u] + weight)
+    return dist
+# Przykładowy graf: klucze to wierzchołki, wartości to listy par (sąsiad, waga)
+graph = {
+    'A': [('B', 5), ('C', 1)],
+    'B': [('A', 5), ('C', 2), ('D', 1)],
+    'C': [('A', 1), ('B', 2), ('D', 4), ('E', 8)],
+    'D': [('B', 1), ('C', 4), ('E', 3), ('F', 6)],
+    'E': [('C', 8), ('D', 3)],
+    'F': [('D', 6)]
+}
+print(dijkstra(graph, 'A'))
+"""
+
+
+# Bellman-Ford - O( |V|*|E| )
+"""
+def bellman_ford(graph, start):
+    # Inicjalizacja: wszystkie wierzchołki mają odległość nieskończoność, oprócz wierzchołka startowego
+    dist = {vertex: float('inf') for vertex in graph}
+    dist[start] = 0
+    # Relaksacja wszystkich krawędzi (|V| - 1) razy
+    for _ in range(len(graph) - 1):
+        for u in graph:
+            for v, weight in graph[u]:
+                if dist[u] + weight < dist[v]:
+                    dist[v] = dist[u] + weight
+    # Sprawdzenie cykli o ujemnej wadze
+    for u in graph:
+        for v, weight in graph[u]:
+            if dist[u] + weight < dist[v]:
+                raise ValueError("Graf zawiera cykl o ujemnej wadze")
+    return dist
+    # Przykładowy graf:
+graph = {
+    'A': [('B', 4), ('C', 2)],
+    'B': [('C', 3), ('D', 2), ('E', 3)],
+    'C': [('B', 1), ('D', 4), ('E', 5)],
+    'D': [('E', -5)],
+    'E': []
+}
+# Uruchomienie algorytmu Bellmana-Forda
+start_vertex = 'A'
+shortest_paths = bellman_ford(graph, start_vertex)
+print("Najkrótsze ścieżki od", start_vertex, ":", shortest_paths)
+"""
+
+# Kruskal
+"""
+def kruskal(edges, vertices):
+    # Funkcja realizująca algorytm Kruskala do wyznaczania minimalnego drzewa rozpinającego.
+    # 
+    # :param edges: Lista krawędzi, gdzie każda krawędź jest reprezentowana jako krotka (u, v, waga).
+    # :param vertices: Lista lub zbiór wierzchołków grafu.
+    # :return: Lista krawędzi należących do minimalnego drzewa rozpinającego.
+    # Sortujemy krawędzie rosnąco według wagi
+    edges.sort(key=lambda x: x[2])
+
+    # Inicjalizacja struktury Union-Find
+    parent = {v: v for v in vertices}
+    rank = {v: 0 for v in vertices}
+
+    def find(v):
+        # Znajduje reprezentanta zbioru wierzchołka v z kompresją ścieżki.
+        if parent[v] != v:
+            parent[v] = find(parent[v])
+        return parent[v]
+
+    def union(u, v):
+        # Łączy dwa zbiory reprezentowane przez u i v, stosując unii według rangi.
+        root_u = find(u)
+        root_v = find(v)
+        if root_u != root_v:
+            if rank[root_u] < rank[root_v]:
+                parent[root_u] = root_v
+            elif rank[root_u] > rank[root_v]:
+                parent[root_v] = root_u
+            else:
+                parent[root_v] = root_u
+                rank[root_u] += 1
+
+    mst = []  # Lista krawędzi w MST
+    for u, v, w in edges:
+        # Jeśli wierzchołki u i v należą do różnych zbiorów, dodajemy krawędź do MST
+        if find(u) != find(v):
+            union(u, v)
+            mst.append((u, v, w))
+
+    return mst
+
+
+# Przykładowe użycie:
+edges = [
+    ('A', 'B', 1),
+    ('A', 'C', 3),
+    ('B', 'C', 1),
+    ('B', 'D', 4),
+    ('C', 'D', 2),
+    ('C', 'E', 5),
+    ('D', 'E', 1)
+]
+vertices = ['A', 'B', 'C', 'D', 'E']
+
+mst = kruskal(edges, vertices)
+print("Minimalne drzewo rozpinające:", mst)
+"""
+
+import heapq
+
+
+# Prim
+"""
+def prim(graph, start):
+    # Implementacja algorytmu Prima do wyznaczania minimalnego drzewa rozpinającego (MST).
+    # 
+    # :param graph: Słownik reprezentujący graf, gdzie klucze to wierzchołki, a wartości to listy krotek (sąsiad, waga).
+    # :param start: Wierzchołek startowy.
+    # :return: Lista krawędzi w MST w postaci (u, v, waga).
+    mst = []  # Lista krawędzi w MST
+    visited = {start}  # Zbiór odwiedzonych wierzchołków
+    # Inicjujemy kolejkę priorytetową krawędzi wychodzących ze startu
+    edges = [(weight, start, v) for v, weight in graph[start]]
+    heapq.heapify(edges)
+
+    while edges:
+        weight, u, v = heapq.heappop(edges)
+        if v not in visited:
+            visited.add(v)
+            mst.append((u, v, weight))
+            # Dodajemy wszystkie krawędzie wychodzące z wierzchołka v do kolejki,
+            # jeśli prowadzą do nieodwiedzonych wierzchołków.
+            for to, w in graph[v]:
+                if to not in visited:
+                    heapq.heappush(edges, (w, v, to))
+
+    return mst
+
+
+# Przykładowe użycie:
+graph = {
+    'A': [('B', 1), ('C', 3)],
+    'B': [('A', 1), ('C', 1), ('D', 4)],
+    'C': [('A', 3), ('B', 1), ('D', 1)],
+    'D': [('B', 4), ('C', 1)]
+}
+
+mst = prim(graph, 'A')
+print("Krawędzie MST:", mst)
+"""
+
+# A*
+"""
+import heapq
+
+
+def a_star(graph, start, goal, h):
+    # Znajduje najkrótszą ścieżkę od wierzchołka 'start' do 'goal' w grafie przy użyciu algorytmu A*.
+    # 
+    # :param graph: Słownik reprezentujący graf, np. {'A': [('B', 1), ('C', 4)], ...}
+    # :param start: Wierzchołek początkowy.
+    # :param goal: Wierzchołek docelowy.
+    # :param h: Funkcja heurystyczna, która przyjmuje wierzchołek i zwraca szacowany koszt dojścia do 'goal'.
+    # :return: Lista wierzchołków tworzących najkrótszą ścieżkę lub None, jeśli ścieżka nie istnieje.
+    open_set = []
+    heapq.heappush(open_set, (h(start), start))
+
+    came_from = {}  # Słownik do rekonstrukcji ścieżki
+    g_score = {vertex: float('inf') for vertex in graph}
+    g_score[start] = 0
+
+    f_score = {vertex: float('inf') for vertex in graph}
+    f_score[start] = h(start)
+
+    while open_set:
+        current_f, current = heapq.heappop(open_set)
+
+        if current == goal:
+            # Rekonstrukcja ścieżki
+            path = [current]
+            while current in came_from:
+                current = came_from[current]
+                path.append(current)
+            return path[::-1]
+
+        for neighbor, cost in graph[current]:
+            tentative_g = g_score[current] + cost
+            if tentative_g < g_score[neighbor]:
+                came_from[neighbor] = current
+                g_score[neighbor] = tentative_g
+                f_score[neighbor] = tentative_g + h(neighbor)
+                heapq.heappush(open_set, (f_score[neighbor], neighbor))
+
+    return None
+
+
+# Przykładowe użycie:
+graph = {
+    'A': [('B', 1), ('C', 4)],
+    'B': [('A', 1), ('C', 2), ('D', 5)],
+    'C': [('A', 4), ('B', 2), ('D', 1)],
+    'D': [('B', 5), ('C', 1)]
+}
+
+
+def heuristic(vertex):
+    # Przykładowa heurystyka - dla uproszczenia zwracamy 0 (A* staje się wtedy algorytmem Dijkstry)
+    # W praktyce należy użyć funkcji szacującej koszt dojścia do celu.
+    return 0
+
+
+path = a_star(graph, 'A', 'D', heuristic)
+print("Najkrótsza ścieżka:", path)
+"""
+
+##-GEOMETRY-##
+
+# Convex Hull - skippppppppp
+
+
+##-COMMON-##
+
+# GCD(NWD)
+"""
+def gcd(a:int,b:int)->int:
+    while b:
+        a, b = b, a % b
+    return a
+print(gcd(101234543248, 24))
+"""
+
+# ! / Factorial / Silnia
+"""
+def fac(x: int)->int:
+    if x == 0 or x == 1: return 1
+    else:
+        a = 1
+        for i in range(2, x+1):
+            a *= i
+        return a
+print(fac(5))
+"""
+"""
+def fact(n:int)->int:
+    if n==0 or n==1: return 1
+    else:
+        temp = 1
+        for i in range(2, n+1):
+            temp *= i
+        return temp
+print(fact(5))
+"""
+"""
+a = lambda x: 1 if x == 0 or x == 1 else x * a(x -1)
+print(silnia(5))
+"""
+
+# Fi
+"""
+def fi(n:int)->int:
+    if n == 0 or n == 1: return 1
+    else:
+        a,b = 0, 1
+        for i in range(2, n + 1):
+            # print(a)
+            a, b = b, a + b
+            print(a)
+        return b
+print(fi(6))
+"""
+"""
+def fif(x:int)->int:
+    if x == 0 or x == 1: return 1
+    else:
+        a,b = 0, 1
+        for i in range(2, n + 1):
+            a, b = b, a + b
+        return b
+    """
+
+
+##-MATH-##
+
+# KMP -
+"""
+def kmp_search(text, pattern):
+    m, n = len(pattern), len(text)
+    i,j = 0,0  # Indeks w tekście Indeks w wzorcu
+    while i < n:
+        if text[i] == pattern[j]:
+            i += 1
+            j += 1
+            if j == m:  # Wzorzec został znaleziony
+                print(f'Pattern found at index {i - j}')
+                j = 0  # Restartujemy wyszukiwanie wzorca
+        else:
+            if j != 0: j = 0  # Restartujemy wzorzec, jeśli występuje niezgodność
+                # Zamiast przesuwać tekst, wracamy do kolejnego możliwego dopasowania
+                # przez przesunięcie wzorca na początek
+            else: i += 1  # Przesuwamy wskaźnik w tekście, jeśli wystąpiła niezgodność
+# Przykładowe użycie:
+text = "ABABDABACDABABCABAB"
+pattern = "ABABCABAB"
+kmp_search(text, pattern)
+"""
+
+
+# ----------------------------------------------------------------------------------------------------------------------#
+"""
+Day: 8/10
+Brakes_Count:
+Goal_Completion: /31
+    - [ ] Sort: QS, BS, IS,
+    - [ ] Search: BS
+    - [ ] Graph: BFS, DFS, Dij, Kru
+    - [ ] Common: GCD, Fi,!
+    - [ ] Text: KMP, Rab-Karp, Mill-Rab
+Start_Data: 30/03/2025
+End_Data: 10/04/2025
+"""
+
+# --_----------________---__________-----------_--#
+
+##-SORT-##
+
+# QS - O( n log n )
+"""
+def qs(arr:list)->list:
+    arr = list(set(arr))
+    if len(arr) < 2: return arr
+    return qs([el for el in arr[1:] if el <= arr[0]]) + [arr[0]] + qs([el for el in arr[1:] if el > arr[0]])
+print(qs("ABABDABACDABABCABAB"))
+"""
+
+# BS - O( n**2 )
+"""
+def bs(arr:list)->list:
+    if len(arr) < 2: return arr
+    for i in range(len(arr)):
+        swap = False
+        for j in range(0, len(arr) - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swap = True
+        if not swap:
+            break
+    return arr
+print(bs([3, 1, 2, 5, 9, 8, 6, 7]))
+"""
+"""
+def bs2(lst: list) -> list:
+    if len(lst) < 2: return lst
+    for i in range(len(lst)):
+        swa = False
+        for j in range(0, len(lst) - i - 1):
+            if lst[j] > lst[j+1]:
+                lst[j], lst[j+1] = lst[j+1], lst[j]
+                swa = True
+        if not swa: break
+    return lst
+print(bs2([3, 1, 2, 5, 9, 8, 6, 7]))
+"""
+
+# IS - O( n**2 )
+"""
+def IS(arr: list) -> list:
+    if len(arr) < 2: return arr
+    for i in range(len(arr)):
+        j = i
+        key = arr[j]
+        while j > 0 and arr[j - 1] > key:
+            arr[j] = arr[j - 1]
+            j -= 1
+        arr[j] = key
+    return arr
+print(IS([3, 1, 2, 5, 9, 8, 6, 7]))
+"""
+
+##-SEARCH-##
+"""
+def bs(lst: list, ele: int) -> int:
+    low = 0
+    high = len(lst) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if lst[mid] == ele: return mid
+        elif lst[mid] < ele: low = mid + 1
+        else: high = mid - 1
+print(bs([1,2,3,4,5,6,7,8,9,10],3))
+"""
+
+##-COMMON-##
+
+# Bin
+"""
+def int_bin(x: int) -> None:
+    if x == 0:
+        print(0)
+        return
+    result = ""
+    while x:
+        result = str(x % 2) + result
+        x //= 2
+    print(result)
+
+int_bin(100)
+"""
+"""
+def i_b(x: int) -> None:
+    if x == 0:
+        print(0)
+        return
+    res = []
+    while x:
+        res.append(x & 1)
+        x //= 2
+    res.reverse()
+    print(*res, sep="")
+i_b(100)
+"""
+"""
+def ib2(x):
+    if x == 0:
+        print(x)
+        return
+    res = ""
+    while x:
+        res = str(x % 2) + res
+        x //= 2
+    print(res)
+ib2(100)
+"""
+"""
+def sil(x:int)->int:
+    if x == 0 or x == 1: return 1
+    temp = 1
+    for i in range(2,x + 1):
+        temp *= i
+        print(f"Liczba: {temp} Mnożone przez: {i}")
+    return temp
+sil(6)
+"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
