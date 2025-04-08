@@ -1799,18 +1799,44 @@ sil(6)
 
 
 
+# ----------------------------------------------------------------------------------------------------------------------#
+"""
+Day: 9/10
+Brakes_Count:
+Goal_Completion: /31
+    - [ ] Sort: QS, BS, IS,
+    - [ ] Search: BS
+    - [ ] Graph: BFS, DFS, Dij, Kru
+    - [ ] Common: GCD, Fi,!
+    - [ ] Text: KMP, Rab-Karp, Mill-Rab
+Start_Data: 30/03/2025
+End_Data: 10/04/2025
+"""
+
+# --_----------________---__________-----------_--#
 
 
 
+# Funkcja do obliczenia n-tego fi, programowaniem dynamicznym
+"""
+def fibonacci(n):
+    if n <= 1:
+        return n
+
+    # Tworzymy tablicę do przechowywania obliczonych wartości
+    fib = [0] * (n + 1)
+    fib[1] = 1
+
+    # Obliczamy wartości Fibonacciego iteracyjnie
+    for i in range(2, n + 1):
+        fib[i] = fib[i - 1] + fib[i - 2]
+
+    return fib[n]
 
 
-
-
-
-
-
-
-
+n = int(input())  # Wczytanie liczby n od użytkownika
+print(fibonacci(n))  # Wywołanie funkcji i wypisanie wyniku
+"""
 
 
 
