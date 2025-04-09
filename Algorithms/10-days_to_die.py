@@ -6,7 +6,6 @@ Start_Data: 30/03/2025
 End_Data: 10/04/2025
 """
 
-
 ### -------Ogólne------- ###
 # Fibonacci – Rekursja
 """
@@ -1369,7 +1368,6 @@ graph = {
 print(dijkstra(graph, 'A'))
 """
 
-
 # Bellman-Ford - O( |V|*|E| )
 """
 def bellman_ford(graph, start):
@@ -1463,7 +1461,6 @@ print("Minimalne drzewo rozpinające:", mst)
 """
 
 import heapq
-
 
 # Prim
 """
@@ -1634,7 +1631,6 @@ def fif(x:int)->int:
         return b
     """
 
-
 ##-MATH-##
 
 # KMP -
@@ -1659,7 +1655,6 @@ text = "ABABDABACDABABCABAB"
 pattern = "ABABCABAB"
 kmp_search(text, pattern)
 """
-
 
 # ----------------------------------------------------------------------------------------------------------------------#
 """
@@ -1797,8 +1792,6 @@ def sil(x:int)->int:
 sil(6)
 """
 
-
-
 # ----------------------------------------------------------------------------------------------------------------------#
 """
 Day: 9/10
@@ -1814,7 +1807,6 @@ End_Data: 10/04/2025
 """
 
 # --_----------________---__________-----------_--#
-
 
 
 # Funkcja do obliczenia n-tego fi, programowaniem dynamicznym
@@ -1837,6 +1829,211 @@ def fibonacci(n):
 n = int(input())  # Wczytanie liczby n od użytkownika
 print(fibonacci(n))  # Wywołanie funkcji i wypisanie wyniku
 """
+
+# ----------------------------------------------------------------------------------------------------------------------#
+"""
+Day: 10/10 - after tommorow - D-Day
+Brakes_Count:
+Goal_Completion: /31
+    - [X] Sort: QS, BS, IS,
+    - [X] Search: BS
+    - [ ] Graph: BFS, DFS, Dij, Kru
+    - [ ] Common: GCD, Fi,!
+    - [ ] Text: KMP, Rab-Karp, Mill-Rab
+Start_Data: 30/03/2025
+End_Data: 10/04/2025
+"""
+
+# --_----------________---__________-----------_--#
+
+##-SORT-##
+
+# QS - O( n log n )
+"""
+def qs(arr: list) -> list:
+    if len(arr) < 2: return arr
+    return qs([el for el in arr[1:] if el <= arr[0]]) + [arr[0]] + qs([el for el in arr[1:] if el > arr[0]])
+print(qs([3, 1, 2, 5, 9, 8, 6, 7]))
+"""
+"""
+def qs(arr: list) -> list:
+    arr = list(set(arr))
+    if len(arr) < 2: return arr
+    return qs([el for el in arr[1:] if el <= arr[0]]) + [arr[0]] + qs([el for el in arr[1:] if el > arr[0]])
+print(qs([3, 1, 2, 2, 5, 9, 8, 6, 7]))
+"""
+"""
+def qs(arr: list) -> list:
+    if len(arr) < 2: return arr
+    return qs([el for el in arr[1:] if el <= arr[0]]) + [arr[0]] + qs([el for el in arr[1:] if el > arr[0]])
+arr = [12, 11, 13, 5, 6]
+print("...... Array is:", arr)
+
+print("Sorted array is:", qs(arr))
+"""
+
+# IS  - O( n**2 )
+"""
+def is1(arr: list) -> list:
+    if len(arr) < 2: return arr
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+arr = [12, 11, 13, 5, 6]
+print("...... Array is:", arr)
+is1(arr)
+print("Sorted array is:", arr)
+"""
+"""
+def is2(arr: list) -> list:
+    if len(arr) < 2: return arr
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+arr = [12, 11, 13, 5, 6]
+print("...... Array is:", arr)
+is2(arr)
+print("Sorted array is:", arr)
+"""
+"""
+def is3(arr: list) -> list:
+    if len(arr) < 2: return arr
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+arr = [12, 11, 13, 5, 6]
+print("...... Array is:", arr)
+is3(arr)
+print("Sorted array is:", arr)
+"""
+"""
+def insert_sort(arr: list) -> list:
+    if len(arr) < 2: return arr
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+arr = [12, 11, 13, 5, 6]
+print("...... Array is:", arr)
+insert_sort(arr)
+print("Sorted array is:", arr)
+"""
+"""
+def ins(arr: list) -> list:
+    if len(arr) < 2: return arr
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+
+
+arr = [12, 11, 13, 5, 6]
+print("...... Array is:", arr)
+ins(arr)
+print("Sorted array is:", arr)
+"""
+
+
+# BS - O( n**2 )
+"""
+def bs(arr: list) -> list:
+    if len(arr) < 2: return arr
+    for i in range(len(arr)):
+        swap = False
+        for j in range(0, len(arr) - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swap = True
+        if not swap:
+            break
+arr = [64, 34, 25, 12, 22, 11, 90]
+bs(arr)
+print("Sorted array is:", arr)
+"""
+"""
+def bs(arr: list) -> list:
+    if len(arr) < 2: return arr
+    for i in range(len(arr)):
+        swap = False
+        for j in range(0, len(arr) - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swap = True
+        if not swap:
+            break
+arr = [64, 34, 25, 12, 22, 11, 90]
+bs(arr)
+print("Sorted array is:", arr)
+"""
+"""
+def bubble_sort(arr: list[int]) -> list[int]:
+    if len(arr) < 2: return arr
+    for i in range(len(arr)):
+        swapped = False
+        for j in range(0, len(arr) - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+        if not swapped:
+            break
+arr = [12, 11, 13, 5, 6]
+print("...... Array is:", arr)
+bubble_sort(arr)
+print("Sorted array is:", arr)
+"""
+
+##-SEARCH-##
+
+# BS - O ( log n )
+
+def bs(arr: list[int], x: int) -> int:
+#     x:: szukana
+#   arr:: lista (musi być posortowana)
+    low = 0
+#   Indeks startowy, lewy, początek listy/obszaru poszukiwań
+    high = len(arr) - 1
+#   Indeks końcowy, prawy, koniec listy/obszaru poszukiwań
+
+    while low <= high:
+#   Pętla dopóki cały obszar poszukiwań nie zostanie sprawdzony
+        mid = (low + high) // 2
+#       Środkowy index
+        if arr[mid] == x: return mid
+#       Zwróć środkowy element równy szukanemu
+        elif arr[mid] < x: low = mid + 1
+#       Inaczej gdy mniejszy jest index środkowy, lewy/dolny index przesuwa/ogranicza obszar poszukiwań do
+#       elementów większych od środkowego, ale mniejszych/równych ostatniemu/górnemu indeksowi
+        else: high = mid -1
+
+
+arr = [5, 6, 8, 9, 11, 12, 13]
+x = 8
+print(f"Searched element: {x} in array: {arr}")
+print(f"Found element: {x} in array is at index: {bs(arr, x)}")
+
+
+
+
+
+
 
 
 
