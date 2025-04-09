@@ -2003,7 +2003,7 @@ print("Sorted array is:", arr)
 ##-SEARCH-##
 
 # BS - O ( log n )
-
+"""
 def bs(arr: list[int], x: int) -> int:
 #     x:: szukana
 #   arr:: lista (musi być posortowana)
@@ -2028,13 +2028,32 @@ arr = [5, 6, 8, 9, 11, 12, 13]
 x = 8
 print(f"Searched element: {x} in array: {arr}")
 print(f"Found element: {x} in array is at index: {bs(arr, x)}")
+"""
+"""
+def bs(arr: list, x:int) -> int:
+    low = 0
+    high = len(arr) - 1
+    while low <= high:
+        mid = (low+high)//2
+        if arr[mid] == x: return mid
+        elif arr[mid] < x: low = mid + 1
+        else: high = mid -1
+    return -1
+"""
+"""
+def bs_r(arr:list, x:int, low:int,high:int)->int:
+    if low > high: return -1
 
+    mid = (low+high) // 2
 
-
-
-
-
-
+    if arr[mid] == x: return mid
+    elif arr[mid] < x: return bs_r(arr,x,mid + 1,high)
+    else: return bs_r(arr,x,low,mid - 1)
+arr = [5, 6, 8, 9, 11, 12, 13]
+x = 8
+print(f"Searched element: {x} in array: {arr}")
+print(f"Found element: {x} in array is at index: {bs_r(arr, x, 0, len(arr) - 1)}")
+"""
 
 
 
