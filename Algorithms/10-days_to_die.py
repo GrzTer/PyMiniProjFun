@@ -2056,6 +2056,97 @@ print(f"Found element: {x} in array is at index: {bs_r(arr, x, 0, len(arr) - 1)}
 """
 
 
+# ----------------------------------------------------------------------------------------------------------------------#
+"""
+Day: 0/10 - tommorow - D-Day
+Brakes_Count:
+Goal_Completion: /31
+    - [ ] Sort: QS, BS, IS,
+    - [ ] Search: BS
+    - [ ] Graph: BFS, DFS, Dij, Kru
+    - [ ] Common: GCD, Fi,!
+    - [ ] Text: KMP, Rab-Karp, Mill-Rab
+Start_Data: 30/03/2025
+End_Data: 10/04/2025
+"""
+
+# --_----------________---__________-----------_--#
+
+
+# BS - binary search - O( log n )
+"""
+def bs(arr: list, n: int) -> int:
+    low = 0
+    high = len(arr) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == n: return mid
+        elif arr[mid] < n: low = mid + 1
+        else: high = mid - 1
+
+arr = [5, 6, 8, 9, 11, 12, 13]
+x = 8
+print(f"Searched element: {x} in array: {arr}")
+print(f"Found element: {x} in array is at index: {bs(arr, x)}")
+"""
+
+# QS - quick sort - O( n log n )
+"""
+def qs(arr: list) -> list:
+    if len(arr) < 2: return arr
+    return qs([el for el in arr[1:] if el <= arr[0]]) + [arr[0]] + qs([el for el in arr[1:] if el > arr[0]])
+arr = [12, 11, 13, 5, 6]
+print("...... Array is:", arr)
+print("Sorted array is:", qs(arr))
+"""
+
+# IS - insert sort - O( n**2 )
+"""
+def iss(arr: list) -> list:
+    if len(arr) < 2: return arr
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                j -= 1
+        arr[j + 1] = key
+arr = [12, 11, 13, 5, 6]
+print("...... Array is:", arr)
+iss(arr)
+print("Sorted array is:", arr)
+"""
+
+# BS - bubble sort - O ( n**2 )
+"""
+def bsort(arr: list) -> list:
+    if len(arr) < 2: return arr
+    for i in range(len(arr)):
+        swapped = False
+        for j in range(0, len(arr) - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+        if not swapped:
+            break
+arr = [12, 11, 13, 5, 6]
+print("...... Array is:", arr)
+bsort(arr)
+print("Sorted array is:", arr)
+"""
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
